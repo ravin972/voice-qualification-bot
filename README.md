@@ -5,6 +5,14 @@ asks a fixed set of yes/no questions, and returns a **deterministic**
 qualified/rejected verdict — targeting sub-second turn latency. A live React
 dashboard watches every call happen in real time.
 
+## Live Demo
+
+Frontend:
+https://voice-qualification-bot.vercel.app/
+
+Backend:
+https://voice-qualification-bot.onrender.com/docs
+
 One engine runs multiple bots as **plain YAML scenario files** — no code
 changes to add a new one:
 
