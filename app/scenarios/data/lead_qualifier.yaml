@@ -1,0 +1,35 @@
+# Home Renovation Lead Qualifier — Assignment 1
+#
+# A new bot is a new YAML file like this one; the engine
+# (ConversationStateMachine + LinearQualificationPolicy + QualificationService)
+# needs no code changes to run it.
+
+bot: lead_qualifier
+name: Home Renovation Lead Qualifier
+
+greeting: >-
+  Hi, thanks for your interest in a home renovation.
+  I just need to ask a few quick questions.
+
+questions:
+  - id: owns_home
+    text: Do you own your home?
+
+  - id: budget_over_10k
+    text: Is your budget over $10,000?
+
+  - id: start_within_3_months
+    text: Are you looking to start within 3 months?
+
+success:
+  label: HOT_LEAD
+  message: Great! I'll connect you with one of our specialists.
+
+failure:
+  label: REJECTED
+  message: >-
+    Thanks for your time. It doesn't look like we're the right fit for your
+    project right now, but we wish you the best of luck with it.
+
+reprompt_unclear: Sorry, I didn't quite catch that — could you say yes or no?
+goodbye: Thank you for your time. Goodbye!

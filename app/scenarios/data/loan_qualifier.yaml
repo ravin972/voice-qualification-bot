@@ -1,0 +1,29 @@
+# QuickRupee Loan Qualification Bot — Assignment 2
+
+bot: loan_qualifier
+name: QuickRupee Loan Qualification Bot
+
+greeting: >-
+  Hi, let's quickly check your eligibility for a personal loan with
+  QuickRupee.
+
+questions:
+  - id: salaried
+    text: Are you a salaried employee?
+
+  - id: salary
+    text: Is your monthly salary above ₹25,000?
+
+  - id: metro
+    text: Do you live in a metro city?
+
+success:
+  label: ELIGIBLE
+  message: Congratulations. An agent will contact you shortly.
+
+failure:
+  label: REJECTED
+  message: Unfortunately, you do not meet the current eligibility criteria.
+
+reprompt_unclear: Sorry, I didn't quite catch that — could you say yes or no?
+goodbye: Thank you for your time. Goodbye!

@@ -1,0 +1,31 @@
+# Runtime dependencies only — this is what ships in the Docker image.
+# For local development/testing, use requirements-dev.txt instead.
+
+# --- Web / async runtime ---
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+websockets==14.1
+httpx==0.28.1
+
+# --- Config & validation ---
+pydantic==2.10.4
+pydantic-settings==2.7.1
+pyyaml==6.0.3
+
+# --- Logging ---
+structlog==24.4.0
+
+# --- Vendor SDKs (adapters) ---
+openai==1.59.6
+deepgram-sdk==3.11.0
+elevenlabs==1.59.0
+cartesia==3.3.0
+twilio==9.4.1
+
+# --- Audio codec helpers ---
+# stdlib `audioop` is deprecated (3.11+) and removed in 3.13; this is the
+# official CPython-team backport (only installable/needed on 3.13+ — this
+# project's pinned 3.12 already has stdlib audioop), used to resample/encode
+# TTS fallback audio (OpenAI TTS's 24kHz PCM) down to Twilio's native 8kHz
+# mu-law. Code just does `import audioop` either way.
+audioop-lts==0.2.2; python_version >= "3.13"

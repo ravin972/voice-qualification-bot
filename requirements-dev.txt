@@ -1,0 +1,16 @@
+# Development & test dependencies. Install with:
+#   pip install -r requirements-dev.txt
+# (this pulls in requirements.txt too, so one command sets up everything).
+-r requirements.txt
+
+pytest==8.3.4
+pytest-asyncio==0.25.2
+pytest-cov==6.0.0
+anyio==4.8.0
+ruff==0.9.2
+mypy==1.14.1
+types-PyYAML==6.0.12.20241230
+
+# Local OS-voice TTS fallback tier — development only, never shipped in the
+# production image (see requirements.txt / app/services/tts_service.py).
+pyttsx3==2.99

@@ -1,0 +1,50 @@
+[project]
+name = "voice-qualification-bot"
+version = "0.1.0"
+description = "Config-driven, low-latency voice qualification bot (FastAPI + Twilio Media Streams + LLM)."
+requires-python = ">=3.12"
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+src = ["app", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "ASYNC", "D"]
+ignore = ["D203", "D213"]  # incompatible docstring rules; pick one of each pair
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["D"]          # docstrings not required in tests
+"**/__init__.py" = ["F401"]  # re-exports
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+plugins = ["pydantic.mypy"]
+warn_unused_ignores = true
+disallow_untyped_defs = true
+
+# Vendor SDKs that ship no type stubs / py.typed marker — not our code to fix.
+[[tool.mypy.overrides]]
+module = ["twilio.*", "deepgram.*", "pyttsx3.*", "pythoncom.*", "audioop.*"]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+addopts = "-ra -q"
+markers = [
+    "unit: pure-logic tests — no network, no ASGI app, no subprocess",
+    "integration: exercises the real FastAPI app via TestClient (HTTP/WebSocket)",
+]
+
+[tool.coverage.run]
+source = ["app"]
+branch = true
+
+[tool.coverage.report]
+show_missing = true
+skip_empty = true
