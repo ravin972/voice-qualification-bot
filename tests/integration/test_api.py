@@ -91,3 +91,22 @@ def test_twilio_voice_websocket_url_matches_public_base_url(client: TestClient) 
     response = client.post("/twilio/voice")
     assert "wss://" in response.text or "ws://" in response.text
     assert "/media-stream" in response.text
+
+
+def test_cors_allows_the_deployed_frontend_origin(client: TestClient) -> None:
+    """The frontend (Vercel) and backend (Render) are on different domains —
+    without CORS, the browser blocks every cross-origin fetch the dashboard makes."""
+    response = client.get(
+        "/health", headers={"Origin": "https://voice-qualification-bot.vercel.app"}
+    )
+    assert response.status_code == 200
+    assert (
+        response.headers["access-control-allow-origin"]
+        == "https://voice-qualification-bot.vercel.app"
+    )
+
+
+def test_cors_rejects_an_unlisted_origin(client: TestClient) -> None:
+    response = client.get("/health", headers={"Origin": "https://not-our-frontend.example"})
+    assert response.status_code == 200  # request still succeeds...
+    assert "access-control-allow-origin" not in response.headers  # ...but isn't CORS-allowed

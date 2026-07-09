@@ -44,6 +44,21 @@ class Settings(BaseSettings):
         default="http://localhost:8000",
         description="Externally reachable base URL Twilio uses for webhooks/streams.",
     )
+    cors_allowed_origins: str = Field(
+        default="http://localhost:5173,http://localhost:5174,"
+        "https://voice-qualification-bot.vercel.app",
+        description=(
+            "Comma-separated origins allowed to call this API cross-origin — "
+            "the deployed frontend's URL(s) plus local Vite dev ports. The API "
+            "and frontend are served from different domains in production "
+            "(Render + Vercel), so this is required, not optional."
+        ),
+    )
+
+    @property
+    def cors_allowed_origins_list(self) -> list[str]:
+        """Parse ``cors_allowed_origins`` into the list ``CORSMiddleware`` expects."""
+        return [origin.strip() for origin in self.cors_allowed_origins.split(",") if origin.strip()]
 
     # --- Logging -------------------------------------------------------------
     log_level: Literal["DEBUG", "INFO", "WARNING", "ERROR"] = "INFO"
