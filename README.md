@@ -69,7 +69,7 @@ composition root — see [`app/config/dependencies.py`](./app/config/dependencie
 
 ---
 
-![Dashboard](docs\images\dashboard.png)
+![Dashboard](docs/images/dashboard.png)
 ---
 
 ## Scenario configuration (the architectural highlight)
